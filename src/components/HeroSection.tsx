@@ -23,11 +23,12 @@ const HeroSection = () => {
             </p>
             
             <div className="max-w-md mx-auto lg:mx-0">
-              <WaitlistForm />
+              <WaitlistForm type="both" />
             </div>
             
-            <div className="mt-6 text-sm text-gray-500">
-              Be the first to know when Steer launches in your area.
+            <div className="mt-6 text-sm text-gray-500 flex justify-center lg:justify-start gap-8">
+              <div>Be the first to know when Steer launches in your area</div>
+              <div className="text-steer-green font-medium">Farmers: List your products!</div>
             </div>
           </div>
           

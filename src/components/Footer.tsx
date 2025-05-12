@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import WaitlistForm from "./WaitlistForm";
+import { Beef, Tractor } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -12,8 +13,15 @@ const Footer = () => {
             <p className="text-steer-cream/80 max-w-xs">
               Connecting consumers directly with cattle farmers for premium, ethically-raised beef.
             </p>
-            <div className="mt-6">
-              <WaitlistForm variant="inline" buttonText="Join" className="max-w-md" />
+            <div className="mt-6 flex gap-4">
+              <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10 text-white">
+                <Beef className="mr-2 h-4 w-4" />
+                For Customers
+              </Button>
+              <Button variant="outline" size="sm" className="border-steer-green hover:bg-steer-green/20 text-steer-green">
+                <Tractor className="mr-2 h-4 w-4" />
+                For Farmers
+              </Button>
             </div>
           </div>
           

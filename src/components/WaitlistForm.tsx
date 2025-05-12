@@ -9,17 +9,20 @@ interface WaitlistFormProps {
   className?: string;
   buttonText?: string;
   variant?: "default" | "inline";
+  type?: "customer" | "farmer" | "both";
 }
 
 const WaitlistForm = ({
   className = "",
   buttonText = "Join Waitlist",
-  variant = "default"
+  variant = "default",
+  type = "both"
 }: WaitlistFormProps) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [userType, setUserType] = useState<"customer" | "farmer">("customer");
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +46,7 @@ const WaitlistForm = ({
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
       // Log the data (in a real app, you'd send this to your backend)
-      console.log("Waitlist signup:", { name, email });
+      console.log("Waitlist signup:", { name, email, userType });
       
       // Show success state
       setIsSuccess(true);
@@ -52,7 +55,7 @@ const WaitlistForm = ({
       
       toast({
         title: "Success!",
-        description: "You've been added to our waitlist.",
+        description: `You've been added to our waitlist as a ${userType}.`,
       });
       
     } catch (error) {
@@ -113,9 +116,33 @@ const WaitlistForm = ({
           required
         />
       </div>
+      
+      {type === "both" && (
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant={userType === "customer" ? "default" : "outline"}
+            className={`flex-1 ${userType === "customer" ? "bg-steer-brown hover:bg-steer-brown/90 text-white" : ""}`}
+            onClick={() => setUserType("customer")}
+            disabled={isLoading || isSuccess}
+          >
+            Join as Customer
+          </Button>
+          <Button
+            type="button"
+            variant={userType === "farmer" ? "default" : "outline"} 
+            className={`flex-1 ${userType === "farmer" ? "bg-steer-green hover:bg-steer-green/90 text-white" : ""}`}
+            onClick={() => setUserType("farmer")}
+            disabled={isLoading || isSuccess}
+          >
+            Join as Farmer
+          </Button>
+        </div>
+      )}
+      
       <Button 
         type="submit" 
-        className="w-full bg-steer-brown hover:bg-steer-brown/90 text-white" 
+        className={`w-full ${userType === "farmer" ? "bg-steer-green hover:bg-steer-green/90" : "bg-steer-brown hover:bg-steer-brown/90"} text-white`}
         disabled={isLoading || isSuccess}
       >
         {isLoading ? "Processing..." : isSuccess ? "Added to Waitlist! ✓" : buttonText}
