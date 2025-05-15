@@ -36,7 +36,7 @@ const WaitlistForm = ({
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [userType, setUserType] = useState<"customer" | "farmer">("customer");
+  const userType: "customer" | "farmer" = type === "farmer" ? "farmer" : "customer";
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
@@ -259,29 +259,6 @@ const WaitlistForm = ({
           rows={3}
         />
       </div>
-      
-      {type === "both" && (
-        <div className="flex gap-2">
-          <Button
-            type="button"
-            variant={userType === "customer" ? "default" : "outline"}
-            className={`flex-1 ${userType === "customer" ? "bg-steer-brown hover:bg-steer-brown/90 text-white" : ""}`}
-            onClick={() => setUserType("customer")}
-            disabled={isLoading || isSuccess}
-          >
-            Join as Customer
-          </Button>
-          <Button
-            type="button"
-            variant={userType === "farmer" ? "default" : "outline"} 
-            className={`flex-1 ${userType === "farmer" ? "bg-steer-green hover:bg-steer-green/90 text-white" : ""}`}
-            onClick={() => setUserType("farmer")}
-            disabled={isLoading || isSuccess}
-          >
-            Join as Farmer
-          </Button>
-        </div>
-      )}
       
       <Button 
         type="submit" 
