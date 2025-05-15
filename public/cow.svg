@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cow body -->
+  <path d="M24 16C24 20.4183 20.4183 24 16 24C11.5817 24 8 20.4183 8 16C8 11.5817 11.5817 8 16 8C20.4183 8 24 11.5817 24 16Z" fill="#8B4513"/>
+  
+  <!-- Cow spots -->
+  <path d="M14 12C14 12 16 10 18 10C20 10 22 12 22 12C22 12 20 14 18 14C16 14 14 12 14 12Z" fill="white"/>
+  
+  <!-- Cow face (side view) -->
+  <path d="M24 14C24 14 26 12 28 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Cow ear -->
+  <path d="M22 10L24 8L26 10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Cow tail -->
+  <path d="M8 14C8 14 6 12 4 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg> 

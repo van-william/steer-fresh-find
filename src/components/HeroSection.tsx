@@ -1,19 +1,17 @@
-
 import { Button } from "@/components/ui/button";
 import WaitlistForm from "./WaitlistForm";
 
 const HeroSection = () => {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-steer-cream to-white">
+    <div className="relative bg-gradient-to-b from-steer-cream to-white">
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-steer-brown/10 mix-blend-multiply"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white"></div>
+        <div className="absolute inset-0 bg-steer-brown/5"></div>
       </div>
       
       <div className="relative z-10 px-4 pt-16 pb-24 sm:px-6 sm:pt-24 sm:pb-32 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-steer-brown mb-6 animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-steer-brown mb-6">
               Farm Fresh Beef,<br /> 
               <span className="text-steer-red">Direct to Your Door</span>
             </h1>
@@ -26,14 +24,15 @@ const HeroSection = () => {
               <WaitlistForm type="both" />
             </div>
             
-            <div className="mt-6 text-sm text-gray-500 flex justify-center lg:justify-start gap-8">
+            <div className="mt-6 text-sm text-gray-500 flex flex-col lg:flex-row justify-center lg:justify-start gap-4">
               <div>Be the first to know when Steer launches in your area</div>
               <div className="text-steer-green font-medium">Farmers: List your products!</div>
             </div>
           </div>
           
           <div className="hidden lg:block relative h-full min-h-[400px]">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&q=80')] bg-cover bg-center rounded-2xl shadow-xl transform rotate-2 hover:rotate-0 transition-transform duration-500"></div>
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&q=80')] bg-cover bg-center rounded-2xl shadow-lg"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent rounded-2xl"></div>
           </div>
         </div>
       </div>

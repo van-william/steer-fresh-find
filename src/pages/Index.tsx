@@ -1,9 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import HeroSection from '@/components/HeroSection';
 import BenefitsSection from '@/components/BenefitsSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
-import TestimonialSection from '@/components/TestimonialSection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -61,7 +59,6 @@ const Index = () => {
         <HeroSection />
         <BenefitsSection />
         <HowItWorksSection />
-        <TestimonialSection />
         <FAQSection />
         
         {/* Final CTA Section */}
