@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import WaitlistForm from "./WaitlistForm";
 import { Beef, Tractor } from "lucide-react";
@@ -14,11 +13,27 @@ const Footer = () => {
               Connecting consumers directly with cattle farmers for premium, ethically-raised beef.
             </p>
             <div className="mt-6 flex gap-4">
-              <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10 text-white">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-steer-brown text-steer-brown bg-white hover:border-white hover:text-white [&_svg]:hover:text-white" 
+                onClick={() => {
+                  const joinSection = document.getElementById('join-waitlist');
+                  joinSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <Beef className="mr-2 h-4 w-4" />
                 For Customers
               </Button>
-              <Button variant="outline" size="sm" className="border-steer-green hover:bg-steer-green/20 text-steer-green">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-steer-green text-steer-green bg-white hover:border-white hover:text-white [&_svg]:hover:text-white" 
+                onClick={() => {
+                  const joinSection = document.getElementById('join-waitlist');
+                  joinSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <Tractor className="mr-2 h-4 w-4" />
                 For Farmers
               </Button>

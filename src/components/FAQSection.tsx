@@ -1,10 +1,10 @@
-
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import WaitlistForm from "@/components/WaitlistForm";
 
 const faqs = [
   {
@@ -52,6 +52,11 @@ const FAQSection = () => {
         
         <div className="text-center mt-8 text-gray-600">
           Have other questions? <a href="#" className="text-steer-brown hover:underline">Contact us</a>
+        </div>
+        <div className="flex justify-center mt-10">
+          <div className="max-w-md w-full">
+            <WaitlistForm type="both" />
+          </div>
         </div>
       </div>
     </section>

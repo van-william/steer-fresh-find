@@ -60,39 +60,9 @@ const Index = () => {
         <BenefitsSection />
         <HowItWorksSection />
         <FAQSection />
-        
-        {/* Final CTA Section */}
-        <section id="join-waitlist" className="bg-white py-16 md:py-24">
-          <div className="section-container text-center">
-            <h2 className="section-title">Join Our Waitlist</h2>
-            <p className="section-subtitle mb-6">
-              Be the first to know when Steer launches in your area and gain early access to our platform.
-            </p>
-            
-            <div className="flex flex-col md:flex-row gap-8 justify-center mt-10">
-              <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 flex-1 max-w-md border-t-4 border-steer-brown">
-                <h3 className="text-xl font-bold text-steer-brown mb-4">For Meat Lovers</h3>
-                <p className="text-gray-600 mb-6">Get access to premium, farm-fresh beef delivered directly to your door.</p>
-                <WaitlistForm buttonText="Join as Customer" />
-              </div>
-              
-              <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 flex-1 max-w-md border-t-4 border-steer-green">
-                <h3 className="text-xl font-bold text-steer-green mb-4">For Farmers</h3>
-                <p className="text-gray-600 mb-6">List your farm and sell your premium beef directly to consumers.</p>
-                <WaitlistForm buttonText="Join as Farmer" />
-              </div>
-            </div>
-            
-            <div className="mt-8 text-gray-600">
-              We're currently building our network of farms and customers. <br />
-              Sign up now to stay updated!
-            </div>
-          </div>
-        </section>
       </main>
       
       <Footer />
-      
       <ExampleShopModal open={shopModalOpen} onOpenChange={setShopModalOpen} />
     </div>
   );
