@@ -78,9 +78,11 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
   const filetMignon = formData.has("filetMignon") ? true : false;
   const brisket = formData.has("brisket") ? true : false;
 
-  // Parse quantities
-  const weeklyQuantity = formData.get("weeklyQuantity") as string;
-  const monthlyBudget = formData.get("monthlyBudget") as string;
+  // Parse quantities and frequency
+  const quantity = parseInt(formData.get("quantity") as string) || 1;
+  const frequency = formData.get("frequency") as string;
+  const monthlyBudget =
+    parseFloat(formData.get("monthlyBudget") as string) || 0;
 
   try {
     // Insert or update profile data
@@ -108,7 +110,8 @@ export const action = async ({ request }: LoaderFunctionArgs) => {
         ground_beef_preferred: groundBeef,
         filet_mignon_preferred: filetMignon,
         brisket_preferred: brisket,
-        weekly_quantity: weeklyQuantity,
+        quantity: quantity,
+        frequency: frequency,
         monthly_budget: monthlyBudget,
       });
 
@@ -137,8 +140,11 @@ const addressSchema = z.object({
 // Validate preferences schema
 const preferencesSchema = z.object({
   cuts: z.array(z.string()).min(1, "Select at least one cut of beef"),
-  weeklyQuantity: z.string().min(1, "Please select a quantity"),
-  monthlyBudget: z.string().min(1, "Please enter your monthly budget"),
+  quantity: z.number().min(1, "Please select a quantity"),
+  frequency: z.enum(["weekly", "bi-weekly", "monthly"], {
+    required_error: "Please select a delivery frequency",
+  }),
+  monthlyBudget: z.number().min(1, "Please enter your monthly budget"),
 });
 
 export default function Onboarding() {
@@ -161,7 +167,8 @@ export default function Onboarding() {
 
   // Preferences form
   const [selectedCuts, setSelectedCuts] = useState<string[]>([]);
-  const [weeklyQuantity, setWeeklyQuantity] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [frequency, setFrequency] = useState<"weekly" | "bi-weekly" | "monthly">("weekly");
   const [monthlyBudget, setMonthlyBudget] = useState("");
 
   // Toggle beef cut selection
@@ -185,8 +192,13 @@ export default function Onboarding() {
       return;
     }
 
-    if (!weeklyQuantity) {
-      alert("Please select your preferred weekly quantity");
+    if (quantity < 1) {
+      alert("Please select a valid quantity");
+      return;
+    }
+    
+    if (!frequency) {
+      alert("Please select your preferred delivery frequency");
       return;
     }
 
@@ -220,8 +232,9 @@ export default function Onboarding() {
     if (selectedCuts.includes("Beef Brisket"))
       formData.append("brisket", "true");
 
-    // Add quantities
-    formData.append("weeklyQuantity", weeklyQuantity);
+    // Add quantities and frequency
+    formData.append("quantity", quantity.toString());
+    formData.append("frequency", frequency);
     formData.append("monthlyBudget", monthlyBudget);
 
     try {
@@ -408,20 +421,66 @@ export default function Onboarding() {
 
                 <div>
                   <h3 className="text-lg font-medium mb-3">
-                    How Much Beef Per Week?
+                    Quantity & Frequency
                   </h3>
-                  <div className="grid grid-cols-3 gap-3">
-                    {["2-3 lbs", "4-6 lbs", "7+ lbs"].map((qty) => (
-                      <Button
-                        key={qty}
-                        type="button"
-                        variant={weeklyQuantity === qty ? "default" : "outline"}
-                        onClick={() => setWeeklyQuantity(qty)}
-                        className="h-auto py-2"
-                      >
-                        {qty}
-                      </Button>
-                    ))}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        How many pounds of beef?
+                      </label>
+                      <div className="flex items-center">
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                          disabled={quantity <= 1}
+                          className="h-9 px-3"
+                        >
+                          -
+                        </Button>
+                        <Input
+                          type="number"
+                          min="1"
+                          className="mx-2 text-center w-20"
+                          value={quantity}
+                          onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+                        />
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setQuantity(quantity + 1)}
+                          className="h-9 px-3"
+                        >
+                          +
+                        </Button>
+                        <span className="ml-2">lbs</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        How often would you like delivery?
+                      </label>
+                      <div className="grid grid-cols-3 gap-3">
+                        {[
+                          { value: "weekly", label: "Weekly" },
+                          { value: "bi-weekly", label: "Bi-Weekly" },
+                          { value: "monthly", label: "Monthly" },
+                        ].map((freq) => (
+                          <Button
+                            key={freq.value}
+                            type="button"
+                            variant={frequency === freq.value ? "default" : "outline"}
+                            onClick={() => setFrequency(freq.value as "weekly" | "bi-weekly" | "monthly")}
+                            className="h-auto py-2"
+                          >
+                            {freq.label}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
 

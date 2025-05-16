@@ -24,13 +24,14 @@ create table public.user_preferences (
   ground_beef_preferred boolean not null default false,
   filet_mignon_preferred boolean not null default false,
   brisket_preferred boolean not null default false,
-  weekly_quantity text,
-  monthly_budget text,
+  quantity integer not null default 1,
+  frequency text not null check (frequency in ('weekly', 'bi-weekly', 'monthly')),
+  monthly_budget numeric(10, 2),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique(user_id)
 );
-comment on table public.user_preferences is 'User beef preferences including preferred cuts, quantity, and budget information collected during onboarding.';
+comment on table public.user_preferences is 'User beef preferences including preferred cuts, delivery frequency, quantity, and budget information collected during onboarding.';
 
 -- Create a dummy products table for recommendations
 create table public.products (

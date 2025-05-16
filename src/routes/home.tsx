@@ -35,13 +35,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     .single();
 
   // Get user preferences
-  const { data: preferencesData } = await supabase
-    .from("user_preferences")
-    .select("*")
-    .eq("user_id", data.user.id)
-    .single();
-    
-  // Get products data
+const { data: preferencesData } = await supabase
+  .from("user_preferences")
+  .select("*")
+  .eq("user_id", data.user.id)
+  .single();
+
+// Get products data
   const { data: productsData } = await supabase
     .from("products")
     .select("*")
@@ -67,17 +67,40 @@ export default function HomePage() {
   if (data.preferences?.filet_mignon_preferred)
     preferredCuts.push("Filet Mignon");
   if (data.preferences?.brisket_preferred) preferredCuts.push("Beef Brisket");
+
+  // Figure out next delivery date based on frequency
+  const getNextDeliveryDate = () => {
+    const today = new Date();
+    const nextDate = new Date(today);
     
+    if (data.preferences?.frequency === "weekly") {
+      // Add 7 days
+      nextDate.setDate(today.getDate() + 7);
+    } else if (data.preferences?.frequency === "bi-weekly") {
+      // Add 14 days
+      nextDate.setDate(today.getDate() + 14);
+    } else {
+      // Add 30 days (monthly)
+      nextDate.setDate(today.getDate() + 30);
+    }
+    
+    return nextDate.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  };
+  
   // Mock data for orders
   const upcomingDeliveries = [
     {
       id: "order-123",
-      date: "June 15, 2024", 
+      date: getNextDeliveryDate(), 
       status: "Processing",
       items: 3
     }
   ];
-  
+
   // Fallback products if database doesn't have them
   const products = data.products?.length > 0 ? data.products : [
     {
@@ -207,8 +230,8 @@ export default function HomePage() {
                   {products.slice(0, 2).map(product => (
                     <div key={product.id} className="border rounded-lg overflow-hidden">
                       <div className="aspect-video w-full overflow-hidden">
-                        <img 
-                          src={product.image} 
+                        <img
+                          src={product.image}
                           alt={product.name}
                           className="w-full h-full object-cover"
                         />
@@ -273,8 +296,15 @@ export default function HomePage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <h3 className="font-medium mb-1">Weekly Quantity</h3>
-                    <p className="text-sm">{data.preferences?.weekly_quantity || "Not set"}</p>
+                    <h3 className="font-medium mb-1">Delivery</h3>
+                    <p className="text-sm">
+                      {data.preferences?.quantity || 0} lbs, {" "}
+                      {data.preferences?.frequency === "weekly" 
+                        ? "Weekly" 
+                        : data.preferences?.frequency === "bi-weekly" 
+                        ? "Bi-Weekly" 
+                        : "Monthly"}
+                    </p>
                   </div>
                   <div>
                     <h3 className="font-medium mb-1">Monthly Budget</h3>
@@ -303,7 +333,7 @@ export default function HomePage() {
                     <p className="text-sm">
                       {data.profile.city}, {data.profile.state} {data.profile.postal_code}
                     </p>
-                    
+
                     {data.profile.delivery_instructions && (
                       <div className="mt-2">
                         <h3 className="text-sm font-medium">Delivery Instructions:</h3>
