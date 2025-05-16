@@ -16,7 +16,7 @@ const Footer = () => {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-steer-brown text-steer-brown bg-white hover:border-white hover:text-white [&_svg]:hover:text-white" 
+                className="border-steer-brown text-steer-brown bg-white hover:border-white hover:text-white hover:[&_svg]:text-white" 
                 onClick={() => {
                   const joinSection = document.getElementById('join-waitlist');
                   joinSection?.scrollIntoView({ behavior: 'smooth' });
@@ -28,7 +28,7 @@ const Footer = () => {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-steer-green text-steer-green bg-white hover:border-white hover:text-white [&_svg]:hover:text-white" 
+                className="border-steer-green text-steer-green bg-white hover:border-white hover:text-white hover:[&_svg]:text-white" 
                 onClick={() => {
                   const joinSection = document.getElementById('join-waitlist');
                   joinSection?.scrollIntoView({ behavior: 'smooth' });

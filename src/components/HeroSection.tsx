@@ -3,7 +3,7 @@ import WaitlistForm from "./WaitlistForm";
 
 const HeroSection = () => {
   return (
-    <div className="relative bg-gradient-to-b from-steer-cream to-white">
+    <div className="relative bg-linear-to-b from-steer-cream to-white">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-steer-brown/5"></div>
       </div>
@@ -32,7 +32,7 @@ const HeroSection = () => {
           
           <div className="hidden lg:block relative h-full min-h-[400px]">
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&q=80')] bg-cover bg-center rounded-2xl shadow-lg"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-white/50 to-transparent rounded-2xl"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-white/50 to-transparent rounded-2xl"></div>
           </div>
         </div>
       </div>

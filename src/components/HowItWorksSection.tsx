@@ -35,7 +35,7 @@ const HowItWorksSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {steps.map((step, index) => (
               <div key={index} className="relative">
-                <div className="bg-white rounded-xl p-6 border border-steer-tan/20 shadow-sm h-full hover:shadow-md transition-shadow duration-300">
+                <div className="bg-white rounded-xl p-6 border border-steer-tan/20 shadow-xs h-full hover:shadow-md transition-shadow duration-300">
                   <div className="text-4xl font-bold text-steer-brown/20 mb-4">
                     {step.number}
                   </div>
