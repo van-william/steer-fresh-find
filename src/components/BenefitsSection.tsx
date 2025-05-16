@@ -31,7 +31,7 @@ const BenefitsSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
           {benefits.map((benefit, index) => (
-            <Card key={index} className="border border-steer-tan/20 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <Card key={index} className="border border-steer-tan/20 shadow-xs hover:shadow-md transition-shadow duration-300">
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="bg-steer-cream p-3 rounded-full mb-5">

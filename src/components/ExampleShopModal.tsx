@@ -100,7 +100,7 @@ const ExampleShopModal = ({ open, onOpenChange }: ExampleShopModalProps) => {
                     {product.farm}
                   </div>
                 </div>
-                <div className="p-4 flex-grow">
+                <div className="p-4 grow">
                   <div className="flex justify-between items-start">
                     <h3 className="font-bold text-lg">{product.name}</h3>
                     <div className="font-bold text-steer-brown">${product.price}</div>

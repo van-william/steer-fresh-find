@@ -36,7 +36,7 @@ const FAQSection = () => {
         <h2 className="section-title">Frequently Asked Questions</h2>
         
         <div className="max-w-3xl mx-auto mt-12">
-          <Accordion type="single" collapsible className="bg-white rounded-lg shadow">
+          <Accordion type="single" collapsible className="bg-white rounded-lg shadow-sm">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger className="px-6 hover:text-steer-brown font-medium">

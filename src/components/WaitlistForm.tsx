@@ -155,7 +155,7 @@ const WaitlistForm = ({
           placeholder="Enter your email"
           value={formData.email}
           onChange={handleInputChange}
-          className="flex-grow"
+          className="grow"
           disabled={isLoading || isSuccess}
           aria-invalid={!!errors.email}
         />
@@ -177,7 +177,7 @@ const WaitlistForm = ({
         <div className="flex gap-2 mb-2">
           <Button
             type="button"
-            variant={userType === "customer" ? "default" : "outline"}
+            variant={userType === "customer" ? "default" : "outline-solid"}
             className={`flex-1 ${userType === "customer" ? "bg-steer-brown hover:bg-steer-brown/90 text-white" : ""}`}
             onClick={() => setUserType("customer")}
             disabled={isLoading || isSuccess}
@@ -186,7 +186,7 @@ const WaitlistForm = ({
           </Button>
           <Button
             type="button"
-            variant={userType === "farmer" ? "default" : "outline"}
+            variant={userType === "farmer" ? "default" : "outline-solid"}
             className={`flex-1 ${userType === "farmer" ? "bg-steer-green hover:bg-steer-green/90 text-white" : ""}`}
             onClick={() => setUserType("farmer")}
             disabled={isLoading || isSuccess}
