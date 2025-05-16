@@ -24,7 +24,7 @@ import {
   LogIn,
   UserPlus,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, redirect } from "react-router";
 
 const faqs = [
   {
@@ -136,8 +136,6 @@ const products = [
 
 export default function Index() {
   const [scrolled, setScrolled] = useState(false);
-  const [shopModalOpen, setShopModalOpen] = useState(false);
-  const [cart, setCart] = useState<number[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,10 +144,6 @@ export default function Index() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const addToCart = (productId: number) => {
-    setCart([...cart, productId]);
-  };
 
   return (
     <div className="relative min-h-screen">
@@ -165,14 +159,6 @@ export default function Index() {
               Steer
             </div>
             <div className="flex items-center gap-2 md:gap-4">
-              <Button
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                onClick={() => setShopModalOpen(true)}
-              >
-                <Beef className="mr-2 h-4 w-4" />
-                See Example Shop
-              </Button>
               <Link to="/sign-up">
                 <Button
                   variant="ghost"
@@ -313,6 +299,58 @@ export default function Index() {
         </div>
       </div>
 
+      {/* Featured Products Section */}
+      <div className="bg-secondary/10 py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+              Featured Products
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Explore our premium selection of farm-fresh beef cuts from local
+              producers.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {products.slice(2, 4).map((product) => (
+              <Card key={product.id} className="overflow-hidden">
+                <div className="aspect-video w-full overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardContent className="p-4">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="font-bold">{product.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {product.farm}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold">${product.price}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {product.weight}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-sm mb-4">{product.description}</p>
+                  <Link to="/login" className="w-full sm:w-auto">
+                    <Button className="w-full">
+                      <ShoppingCart className="mr-2 h-4 w-4" />
+                      Add to Cart
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* FAQ Section */}
       <div className="bg-background py-16 md:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -395,63 +433,6 @@ export default function Index() {
           </div>
         </div>
       </footer>
-
-      {/* Shop Modal */}
-      <Dialog open={shopModalOpen} onOpenChange={setShopModalOpen}>
-        <DialogContent className="sm:max-w-[725px] max-h-[90vh] overflow-auto">
-          <DialogHeader>
-            <DialogTitle>Example Shop</DialogTitle>
-            <DialogDescription>
-              This is a demo of what our shop will look like when we launch.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            {products.map((product) => (
-              <Card key={product.id} className="overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="font-bold">{product.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {product.farm}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-bold">${product.price}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {product.weight}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-sm mb-4">{product.description}</p>
-                  <Button
-                    onClick={() => addToCart(product.id)}
-                    className="w-full"
-                  >
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Add to Cart
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <div className="flex items-center justify-between border-t pt-4 mt-4">
-            <div>
-              <span className="text-sm font-medium">
-                {cart.length} items in cart
-              </span>
-            </div>
-            <Button disabled={cart.length === 0}>Checkout</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
