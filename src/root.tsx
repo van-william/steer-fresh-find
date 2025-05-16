@@ -1,10 +1,4 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router-dom";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import type { PropsWithChildren } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,7 +7,7 @@ import "@/index.css";
 
 const queryClient = new QueryClient();
 
-function Layout({ children }: PropsWithChildren) {
+export function Layout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <head>
@@ -38,24 +32,13 @@ function Layout({ children }: PropsWithChildren) {
   );
 }
 
-// App component provides the React context providers
-function App({ children }: PropsWithChildren) {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        {children}
+        <Outlet />
       </TooltipProvider>
     </QueryClientProvider>
-  );
-}
-
-export default function Root() {
-  return (
-    <Layout>
-      <App>
-        <Outlet />
-      </App>
-    </Layout>
   );
 }
