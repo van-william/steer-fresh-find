@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { hasCompletedOnboarding } from "@/lib/onboarding";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +25,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error, data } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -35,8 +36,16 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     };
   }
 
-  // Update this route to redirect to an authenticated route. The user already has an active session.
-  return redirect("/protected", { headers });
+  // Check if user has completed onboarding
+  const onboardingCompleted = await hasCompletedOnboarding(supabase, data.user.id);
+
+  // If onboarding not completed, redirect to onboarding page
+  if (!onboardingCompleted) {
+    return redirect("/onboarding", { headers });
+  }
+
+  // Otherwise redirect to home page
+  return redirect("/home", { headers });
 };
 
 export default function Login() {

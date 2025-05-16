@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { hasCompletedOnboarding } from '@/lib/onboarding'
 import { type EmailOtpType } from '@supabase/supabase-js'
 import { type LoaderFunctionArgs, redirect } from 'react-router'
 
@@ -10,11 +11,23 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (token_hash && type) {
     const { supabase, headers } = createClient(request)
-    const { error } = await supabase.auth.verifyOtp({
+    const { error, data } = await supabase.auth.verifyOtp({
       type,
       token_hash,
     })
     if (!error) {
+      // Check if user has completed onboarding
+      if (data?.user) {
+        const onboardingCompleted = await hasCompletedOnboarding(supabase, data.user.id);
+        
+        // If onboarding not completed, redirect to onboarding
+        if (!onboardingCompleted) {
+          return redirect('/onboarding', { headers })
+        }
+        
+        // If onboarding is completed, redirect to home
+        return redirect('/home', { headers })
+      }
       return redirect(next, { headers })
     } else {
       return redirect(`/auth/error?error=${error?.message}`)
