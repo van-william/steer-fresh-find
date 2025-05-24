@@ -36,8 +36,8 @@ npm i
 
 # Step 4: Set up environment variables
 # Create a .env file with the following variables:
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
 
 # Step 5: Start the development server
 npm run dev
@@ -61,8 +61,8 @@ This project is configured for deployment on Netlify. The deployment process is 
    - Node version: 18 (or higher)
 
 3. Add the following environment variables in Netlify:
-   - VITE_SUPABASE_URL
-   - VITE_SUPABASE_ANON_KEY
+   - SUPABASE_URL
+   - SUPABASE_ANON_KEY
 
 ## Database Structure
 
