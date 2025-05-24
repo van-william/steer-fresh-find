@@ -1,7 +1,10 @@
 [build]
-command = "npm run build"
+command = "react-router build"
 functions = "netlify/functions"
 publish = "build/client"
+
+[dev]
+command = "react-router dev"
 
 ## Uncomment to use this redirect for Single Page Applications like create-react-app.
 ## Not needed for static site generators.
