@@ -242,6 +242,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-### Netlify ###
-.netlify
