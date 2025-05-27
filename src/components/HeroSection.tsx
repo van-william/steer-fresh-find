@@ -13,7 +13,7 @@ const HeroSection = () => {
           <div className="text-center lg:text-left">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-steer-brown mb-6">
               Farm Fresh Beef,<br /> 
-              <span className="text-steer-red">Direct to Your Door</span>
+              <span className="text-steer-red">Direct from the farmer</span>
             </h1>
             
             <p className="text-lg sm:text-xl text-gray-700 mb-8 max-w-2xl mx-auto lg:mx-0">
